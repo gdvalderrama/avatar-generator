@@ -1,20 +1,17 @@
 <template>
   <Header />
   <AlpacaBuilder />
-  <Actions />
 </template>
 
 <script>
 import Header from './components/Header.vue'
 import AlpacaBuilder from './components/AlpacaBuilder.vue'
-import Actions from './components/Actions.vue'
 
 export default {
   name: 'App',
   components: {
     Header,
     AlpacaBuilder,
-    Actions,
   }
 }
 </script>

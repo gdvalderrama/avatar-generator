@@ -7,35 +7,31 @@
   <div>
 
     <h2>Element</h2>
-    <div v-for="(value, choice) in alpaca" :key="choice">
+    <div v-for="(value, choice) in configuration" :key="choice">
       <button v-on:click="showStyles(choice)">{{ choice }}</button>
     </div>
 
     <h2>Style</h2>
-    <div v-for="style in selectedChoice" :key="style">
+    <div v-for="style in configuration[selectedChoiceName]" :key="style">
       <button v-on:click="setStyle(style)">{{ style }}</button>
     </div>
 
   </div>
 
+  <div>
+    <button v-on:click="randomize">Randomize</button>
+    <button v-on:click="download">Download</button>
+  </div>
+
 </template>
 
 <script>
+import mergeImages from 'merge-images';
+
 export default {
   name: 'AlpacaBuilder',
 
   data () {
-    var Alpaca = {
-        'backgrounds': 'blue50',
-        'ears': 'default',
-        'leg': 'default',
-        'neck': 'default',
-        'hair': 'default',
-        'eyes': 'default',
-        'nose': 'default',
-        'mouth': 'default',
-        'accessories': 'default',
-    }
 
     const backgrounds = ['blue50', 'blue60', 'blue70', 'darkblue30', 'darkblue50', 'darkblue70', 'green50', 'green60', 'green70', 'grey40', 'grey70', 'grey80', 'red50', 'red60', 'red70', 'yellow50', 'yellow60', 'yellow70']
     const ears = ['default', 'tilt-backward', 'tilt-forward']
@@ -47,12 +43,35 @@ export default {
     const mouth = ['astonished', 'default', 'eating', 'laugh', 'tongue']
     const accessories = ['default', 'earings', 'flower', 'glasses', 'headphone']
 
-    var selectedChoice = backgrounds
+    const Configuration = {
+        'backgrounds': backgrounds,
+        'ears': ears,
+        'leg': leg,
+        'neck': neck,
+        'hair': hair,
+        'nose': nose,
+        'eyes': eyes,
+        'mouth':mouth,
+        'accessories': accessories,
+    }
+
+    var Alpaca = {
+        'backgrounds': 'blue50',
+        'ears': 'default',
+        'leg': 'default',
+        'neck': 'default',
+        'hair': 'default',
+        'nose': 'default',
+        'eyes': 'default',
+        'mouth': 'default',
+        'accessories': 'default',
+    }
+
     var selectedChoiceName = 'backgrounds'
 
     return {
+      configuration: Configuration,
       alpaca: Alpaca,
-      selectedChoice: selectedChoice,
       selectedChoiceName: selectedChoiceName,
       backgrounds: backgrounds,
       ears: ears,
@@ -67,12 +86,30 @@ export default {
   },
   methods: {
     showStyles: function (choice) {
-      this.selectedChoice = this[choice]
       this.selectedChoiceName = choice
     },
     setStyle: function (style) {
       this.alpaca[this.selectedChoiceName] = style
     },
+    randomize: function () {
+      for (const key in this.configuration) {
+        this.selectedChoiceName = key
+        this.setStyle(this.configuration[key][Math.floor(Math.random() * this.configuration[key].length)])
+      }
+    },
+    download: function () {
+      var images = document.images
+      var image_urls = []
+      for (var i = 0; i < images.length; i++) {
+        image_urls.push(images[i].src)
+      }
+      mergeImages(image_urls).then((b64) => {
+        var a = document.createElement("a");
+        a.href = b64;
+        a.download = "Alpaca.png";
+        a.click();
+      });
+    }
   }
 }
 </script>

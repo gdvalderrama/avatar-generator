@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import mergeImages from 'merge-images';
+
 export default {
   name: 'Actions',
   methods: {
@@ -13,7 +15,17 @@ export default {
       console.log('TODO randomize')
     },
     download: function () {
-      console.log('TODO download')
+      var images = document.images
+      var image_urls = []
+      for (var i = 0; i < images.length; i++) {
+        image_urls.push(images[i].src)
+      }
+      mergeImages(image_urls).then((b64) => {
+        var a = document.createElement("a");
+        a.href = b64;
+        a.download = "Alpaca.png";
+        a.click();
+      });
     }
   }
 }

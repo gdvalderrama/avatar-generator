@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Design your alpaca!</h1>
+    <h2 class="text-center">Design your alpaca!</h2>
   </div>
 </template>
 

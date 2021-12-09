@@ -9,8 +9,10 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@quasar/extras": "^1.0.0",
     "core-js": "^3.6.5",
     "merge-images": "^2.0.0",
+    "quasar": "^2.0.0",
     "vue": "^3.0.0"
   },
   "devDependencies": {
@@ -23,7 +25,8 @@
     "eslint-plugin-vue": "^7.0.0",
     "gh-pages": "^3.2.3",
     "sass": "^1.44.0",
-    "sass-loader": "^10.2.0"
+    "sass-loader": "^10.2.0",
+    "vue-cli-plugin-quasar": "~4.0.4"
   },
   "eslintConfig": {
     "root": true,

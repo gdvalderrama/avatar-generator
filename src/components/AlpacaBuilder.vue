@@ -1,26 +1,44 @@
 <template>
 
-  <div class="image-preview" v-for="(value, choice) in alpaca" :key="choice">
-    <img class="{{ choice }}" :src="require('../assets/alpaca/' + choice + '/' + value + '.png')">
-  </div>
+  <div class="row">
 
-  <div>
+    <div class="col">
 
-    <h2>Element</h2>
-    <div v-for="(value, choice) in configuration" :key="choice">
-      <button v-on:click="showStyles(choice)">{{ choice }}</button>
+      <div class="row">
+        <div class="col">
+        <div class="q-pa-md q-gutter-sm">
+          <q-btn icon="shuffle" @click="randomize" label="Randomize" color="secondary"/>
+          <q-btn icon="download" @click="download" label="Download" color="secondary"/>
+        </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+      <div v-for="(value, choice) in alpaca" :key="choice">
+        <img class="absolute" :src="require('../assets/alpaca/' + choice + '/' + value + '.png')">
+      </div>
+
+        </div>
+      </div>
+
+
     </div>
 
-    <h2>Style</h2>
-    <div v-for="style in configuration[selectedChoiceName]" :key="style">
-      <button v-on:click="setStyle(style)">{{ style }}</button>
+    <div class="col">
+
+      <h3>Element</h3>
+      <span v-for="(value, choice) in configuration" :key="choice" class="q-pa-xs q-gutter-xs">
+        <q-btn @click="showStyles(choice)" :label="choice" color="primary"/>
+      </span>
+
+      <h3>Style</h3>
+      <span v-for="style in configuration[selectedChoiceName]" :key="style" class="q-pa-xs q-gutter-xs">
+        <q-btn @click="setStyle(style)" :label="style" color="primary"/>
+      </span>
+
     </div>
 
-  </div>
-
-  <div>
-    <button v-on:click="randomize">Randomize</button>
-    <button v-on:click="download">Download</button>
   </div>
 
 </template>
@@ -113,16 +131,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.image-preview {
-  position: relative;
-  top: 0;
-  left: 0;
-}
-.image-preview img {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-</style>

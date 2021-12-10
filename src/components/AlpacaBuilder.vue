@@ -77,13 +77,13 @@ export default {
 
     var Alpaca = {
         'backgrounds': 'blue50',
-        'ears': 'default',
         'leg': 'default',
+        'ears': 'default',
         'neck': 'default',
-        'hair': 'default',
         'nose': 'default',
-        'eyes': 'default',
         'mouth': 'default',
+        'hair': 'default',
+        'eyes': 'default',
         'accessories': 'default',
     }
 

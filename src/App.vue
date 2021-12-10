@@ -4,14 +4,14 @@
 </template>
 
 <script>
-import Header from './components/Header.vue'
-import AlpacaBuilder from './components/AlpacaBuilder.vue'
+import Header from "./components/Header.vue";
+import AlpacaBuilder from "./components/AlpacaBuilder.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Header,
     AlpacaBuilder,
-  }
-}
+  },
+};
 </script>

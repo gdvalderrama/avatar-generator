@@ -29,12 +29,14 @@
 
       <h3>Element</h3>
       <span v-for="(value, choice) in configuration" :key="choice" class="q-pa-xs q-gutter-xs">
-        <q-btn @click="showStyles(choice)" :label="choice" color="primary"/>
+        <q-btn v-if="choice == this.selectedChoiceName" @click="showStyles(choice)" :label="choice" color="primary : secondary"/>
+        <q-btn v-else @click="showStyles(choice)" :label="choice"/>
       </span>
 
       <h3>Style</h3>
       <span v-for="style in configuration[selectedChoiceName]" :key="style" class="q-pa-xs q-gutter-xs">
-        <q-btn @click="setStyle(style)" :label="style" color="primary"/>
+        <q-btn v-if="this.alpaca[this.selectedChoiceName] == style" @click="setStyle(style)" :label="style" color="primary"/>
+        <q-btn v-else @click="setStyle(style)" :label="style"/>
       </span>
 
     </div>

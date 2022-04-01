@@ -1,5 +1,7 @@
 # avatar-generator
 
+Live at https://guiomar.xyz/avatar-generator/
+
 ## Project setup
 ```
 npm install

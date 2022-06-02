@@ -1,16 +1,16 @@
 <template>
-  <Header />
+  <HeaderTitle />
   <AlpacaBuilder />
 </template>
 
 <script>
-import Header from "./components/Header.vue";
+import HeaderTitle from "./components/HeaderTitle.vue";
 import AlpacaBuilder from "./components/AlpacaBuilder.vue";
 
 export default {
   name: "App",
   components: {
-    Header,
+    HeaderTitle,
     AlpacaBuilder,
   },
 };

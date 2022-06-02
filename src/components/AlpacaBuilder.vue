@@ -1,40 +1,35 @@
 <template>
-  <div class="row">
-    <div class="col">
-      <div class="row">
-        <div class="col">
-          <div class="q-pa-md q-gutter-sm">
-            <q-btn
-              icon="shuffle"
-              @click="randomize"
-              label="Randomize"
-              color="secondary"
-            />
-            <q-btn
-              icon="download"
-              @click="download"
-              label="Download"
-              color="secondary"
-            />
-          </div>
-        </div>
+  <div class="row text-center q-pa-md">
+    <div class="col-sm-12 col-md-6">
+      <div class="q-pa-md q-gutter-sm">
+        <q-btn
+          icon="shuffle"
+          @click="randomize"
+          label="Randomize"
+          color="secondary"
+        />
+        <q-btn
+          icon="download"
+          @click="download"
+          label="Download"
+          color="secondary"
+        />
       </div>
 
-      <div class="row">
-        <div class="col">
-          <div v-for="(value, choice) in alpaca" :key="choice">
-            <img
-              class="absolute"
-              :src="
-                require('../assets/alpaca/' + choice + '/' + value + '.png')
-              "
-            />
-          </div>
-        </div>
+      <div class="relative-position">
+        <img
+          class="absolute"
+          style="left: 0"
+          height="500"
+          width="500"
+          v-for="(value, choice) in alpaca"
+          :key="choice"
+          :src="require('../assets/alpaca/' + choice + '/' + value + '.png')"
+        />
       </div>
     </div>
 
-    <div class="col">
+    <div class="col-sm-12 col-md-6">
       <h3>Element</h3>
       <span
         v-for="(value, choice) in configuration"

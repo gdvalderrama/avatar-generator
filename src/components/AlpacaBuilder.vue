@@ -1,64 +1,61 @@
 <template>
   <div class="row text-center q-pa-md">
-    <div class="col-sm-12 col-md-6">
+    <div class="col-12 col-md-6">
       <div class="q-pa-md q-gutter-sm">
         <q-btn
           icon="shuffle"
           @click="randomize"
           label="Randomize"
           color="secondary"
+          aria-label="Randomize alpaca"
         />
         <q-btn
           icon="download"
           @click="download"
           label="Download"
           color="secondary"
+          aria-label="Download alpaca as image"
         />
       </div>
 
-      <div class="relative-position">
+      <div class="alpaca-canvas relative-position">
         <img
-          class="absolute"
-          style="left: 0"
-          height="500"
-          width="500"
+          class="absolute alpaca-layer"
+          style="left: 0; top: 0"
           v-for="(value, choice) in alpaca"
           :key="choice"
           :src="`${baseUrl}alpaca/${choice}/${value}.png`"
+          :alt="`Alpaca ${choice}: ${value}`"
         />
       </div>
     </div>
 
-    <div class="col-sm-12 col-md-6">
-      <h3>Element</h3>
-      <span
-        v-for="(value, choice) in configuration"
-        :key="choice"
-        class="q-pa-xs q-gutter-xs"
-      >
+    <div class="col-12 col-md-6 q-mt-md-none q-mt-xl">
+      <h2 class="text-h6 q-mb-sm">Element</h2>
+      <div role="group" aria-label="Select element">
         <q-btn
-          v-if="choice == this.selectedChoiceName"
+          v-for="(value, choice) in configuration"
+          :key="choice"
           @click="showStyles(choice)"
           :label="choice"
-          color="primary : secondary"
+          :color="choice === selectedChoiceName ? 'primary' : undefined"
+          :aria-pressed="choice === selectedChoiceName"
+          class="q-ma-xs"
         />
-        <q-btn v-else @click="showStyles(choice)" :label="choice" />
-      </span>
+      </div>
 
-      <h3>Style</h3>
-      <span
-        v-for="style in configuration[selectedChoiceName]"
-        :key="style"
-        class="q-pa-xs q-gutter-xs"
-      >
+      <h2 class="text-h6 q-mt-md q-mb-sm">Style</h2>
+      <div role="group" :aria-label="`Select style for ${selectedChoiceName}`">
         <q-btn
-          v-if="this.alpaca[this.selectedChoiceName] == style"
+          v-for="style in configuration[selectedChoiceName]"
+          :key="style"
           @click="setStyle(style)"
           :label="style"
-          color="primary"
+          :color="alpaca[selectedChoiceName] === style ? 'primary' : undefined"
+          :aria-pressed="alpaca[selectedChoiceName] === style"
+          class="q-ma-xs"
         />
-        <q-btn v-else @click="setStyle(style)" :label="style" />
-      </span>
+      </div>
     </div>
   </div>
 </template>
@@ -71,68 +68,27 @@ export default {
 
   data() {
     const backgrounds = [
-      "blue50",
-      "blue60",
-      "blue70",
-      "darkblue30",
-      "darkblue50",
-      "darkblue70",
-      "green50",
-      "green60",
-      "green70",
-      "grey40",
-      "grey70",
-      "grey80",
-      "red50",
-      "red60",
-      "red70",
-      "yellow50",
-      "yellow60",
-      "yellow70",
+      "blue50", "blue60", "blue70",
+      "darkblue30", "darkblue50", "darkblue70",
+      "green50", "green60", "green70",
+      "grey40", "grey70", "grey80",
+      "red50", "red60", "red70",
+      "yellow50", "yellow60", "yellow70",
     ];
     const ears = ["default", "tilt-backward", "tilt-forward"];
-    const leg = [
-      "bubble-tea",
-      "cookie",
-      "default",
-      "game-console",
-      "tilt-backward",
-      "tilt-forward",
-    ];
+    const leg = ["bubble-tea", "cookie", "default", "game-console", "tilt-backward", "tilt-forward"];
     const neck = ["bend-backward", "bend-forward", "default", "thick"];
-    const hair = [
-      "bang",
-      "curls",
-      "default",
-      "elegant",
-      "fancy",
-      "quiff",
-      "short",
-    ];
+    const hair = ["bang", "curls", "default", "elegant", "fancy", "quiff", "short"];
     const eyes = ["angry", "default", "naughty", "panda", "smart", "star"];
     const nose = ["default"];
     const mouth = ["astonished", "default", "eating", "laugh", "tongue"];
-    const accessories = [
-      "default",
-      "earings",
-      "flower",
-      "glasses",
-      "headphone",
-    ];
+    const accessories = ["default", "earings", "flower", "glasses", "headphone"];
 
-    const Configuration = {
-      backgrounds: backgrounds,
-      ears: ears,
-      leg: leg,
-      neck: neck,
-      hair: hair,
-      nose: nose,
-      eyes: eyes,
-      mouth: mouth,
-      accessories: accessories,
+    const configuration = {
+      backgrounds, ears, leg, neck, hair, nose, eyes, mouth, accessories,
     };
 
-    var Alpaca = {
+    const alpaca = {
       backgrounds: "blue50",
       leg: "default",
       ears: "default",
@@ -144,49 +100,34 @@ export default {
       accessories: "default",
     };
 
-    var selectedChoiceName = "backgrounds";
-
     return {
       baseUrl: import.meta.env.BASE_URL,
-      configuration: Configuration,
-      alpaca: Alpaca,
-      selectedChoiceName: selectedChoiceName,
-      backgrounds: backgrounds,
-      ears: ears,
-      leg: leg,
-      neck: neck,
-      hair: hair,
-      eyes: eyes,
-      nose: nose,
-      mouth: mouth,
-      accessories: accessories,
+      configuration,
+      alpaca,
+      selectedChoiceName: "backgrounds",
     };
   },
+
   methods: {
-    showStyles: function (choice) {
+    showStyles(choice) {
       this.selectedChoiceName = choice;
     },
-    setStyle: function (style) {
+    setStyle(style) {
       this.alpaca[this.selectedChoiceName] = style;
     },
-    randomize: function () {
+    randomize() {
       for (const key in this.configuration) {
-        this.selectedChoiceName = key;
-        this.setStyle(
-          this.configuration[key][
-            Math.floor(Math.random() * this.configuration[key].length)
-          ]
-        );
+        this.alpaca[key] = this.configuration[key][
+          Math.floor(Math.random() * this.configuration[key].length)
+        ];
       }
     },
-    download: function () {
-      var images = document.images;
-      var image_urls = [];
-      for (var i = 0; i < images.length; i++) {
-        image_urls.push(images[i].src);
-      }
-      mergeImages(image_urls).then((b64) => {
-        var a = document.createElement("a");
+    download() {
+      const imageLayers = Object.entries(this.alpaca).map(
+        ([choice, value]) => `${this.baseUrl}alpaca/${choice}/${value}.png`
+      );
+      mergeImages(imageLayers).then((b64) => {
+        const a = document.createElement("a");
         a.href = b64;
         a.download = "Alpaca.png";
         a.click();
@@ -195,3 +136,18 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.alpaca-canvas {
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 1;
+  margin: 0 auto;
+}
+
+.alpaca-layer {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+</style>

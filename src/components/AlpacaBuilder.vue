@@ -24,7 +24,7 @@
           width="500"
           v-for="(value, choice) in alpaca"
           :key="choice"
-          :src="`/alpaca/${choice}/${value}.png`"
+          :src="`${baseUrl}alpaca/${choice}/${value}.png`"
         />
       </div>
     </div>
@@ -147,6 +147,7 @@ export default {
     var selectedChoiceName = "backgrounds";
 
     return {
+      baseUrl: import.meta.env.BASE_URL,
       configuration: Configuration,
       alpaca: Alpaca,
       selectedChoiceName: selectedChoiceName,

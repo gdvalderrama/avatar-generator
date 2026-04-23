@@ -2,30 +2,34 @@
 
 Live at https://guiomar.xyz/avatar-generator/
 
-## Project setup
+Built with [Vue 3](https://vuejs.org/), [Quasar](https://quasar.dev/), and [Vite](https://vitejs.dev/).
+
+## Setup
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Development server
 ```
-npm run serve
+npm run dev
 ```
 
-### Compiles and minifies for production
+### Build for production
 ```
 npm run build
 ```
 
-### Lints and fixes files
+### Preview production build
+```
+npm run preview
+```
+
+### Lint
 ```
 npm run lint
 ```
 
-### Deploys to GitHub Pages
+### Deploy to GitHub Pages
 ```
 npm run deploy
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

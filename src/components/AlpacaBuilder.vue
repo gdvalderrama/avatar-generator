@@ -24,7 +24,7 @@
           width="500"
           v-for="(value, choice) in alpaca"
           :key="choice"
-          :src="require('../assets/alpaca/' + choice + '/' + value + '.png')"
+          :src="`/alpaca/${choice}/${value}.png`"
         />
       </div>
     </div>

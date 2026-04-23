@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <h2 class="text-center">Design your alpaca!</h2>
-  </div>
+  <header>
+    <h1 class="text-center text-h5 q-py-md">Design your alpaca!</h1>
+  </header>
 </template>
 
 <script>

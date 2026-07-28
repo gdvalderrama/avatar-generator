@@ -12,7 +12,7 @@
   "dependencies": {
     "@quasar/extras": "^1.18.0",
     "merge-images": "^2.0.0",
-    "quasar": "^2.19.3",
+    "quasar": "^2.23.3",
     "vue": "^3.5.33"
   },
   "devDependencies": {
